@@ -1,0 +1,320 @@
+<!--
+    Ömer Faruk Katkat
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Now Playing - Music Player</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, #222222 0%, #0a0a0a 100%);
+            color: #ffffff;
+        }
+
+        header {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .welcome {
+            font-size: 20px;
+            color: #ffffff;
+        }
+
+        .logout {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .logout:hover {
+            text-decoration: underline;
+            background-color: #1DB954;
+            border-color: #1DB954;
+        }
+
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4);
+        }
+    
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    
+        .now-playing {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    
+        .album-art {
+            width: 300px;
+            height: 300px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+        }
+    
+        .song-info {
+            text-align: center;
+            width: 100%;
+        }
+    
+        .song-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+    
+        .artist-name {
+            font-size: 20px;
+            color: #b3b3b3;
+            margin-bottom: 15px;
+        }
+    
+        .album-name {
+            font-size: 16px;
+            color: #b3b3b3;
+            margin-bottom: 20px;
+        }
+    
+        .country-tag {
+            background-color: rgba(29, 185, 84, 0.2);
+            color: #1DB954;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 5px;
+            border: 1px solid rgba(29, 185, 84, 0.3);
+        }
+    
+        .genre-tag {
+            background-color: rgba(29, 185, 84, 0.2);
+            color: #1DB954;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: inline-block;
+            margin: 5px;
+            border: 1px solid rgba(29, 185, 84, 0.3);
+        }
+    
+        .progress-container {
+            width: 100%;
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin: 20px 0 10px 0;
+            overflow: hidden;
+        }
+    
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            width: 30%;
+            border-radius: 3px;
+        }
+    
+        .time-info {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #b3b3b3;
+            margin-bottom: 30px;
+        }
+    
+        .controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+    
+        .control-button {
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+            margin: 0 15px;
+            color: #ffffff;
+        }
+
+        .play-button {
+            background: none;
+            border: none;
+            font-size: 48px;
+            cursor: pointer;
+            margin: 0 15px;
+            color: #ffffff;
+        }
+    
+        .additional-info {
+            margin-top: 30px;
+            width: 100%;
+        }
+    
+        .song-stats {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+        }
+    
+        .stat {
+            text-align: center;
+            flex: 1;
+        }
+    
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+    
+        .stat-label {
+            font-size: 14px;
+            color: #b3b3b3;
+        }
+    
+        .add-to-playlist {
+            margin-top: 30px;
+            text-align: center;
+        }
+    
+        .playlist-button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+    
+        .playlist-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4);
+        }
+        .now-playing img {
+            width: 300px;
+            height: 300px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="welcome">Hello, <?php echo $user_name; ?>!</div>
+        <a href="logout.php" class="logout">Logout</a>
+    </header>
+
+    <div class="container">
+        <a href="homepage.php" class="back-button">← Back to Home</a>
+        <?php $song_image = getImageUrl($song['song_id'], 'song'); ?>
+        <div class="now-playing">
+            <img 
+                src="<?php echo $song_image; ?>" 
+                alt="<?php echo htmlspecialchars($song['title']); ?>">
+            
+            <div class="song-info">
+                <div class="song-title"><?php echo htmlspecialchars($song['title']); ?></div>
+                <div class="artist-name"><?php echo htmlspecialchars($song['artist_name']); ?></div>
+                <div class="album-name">Album: <?php echo htmlspecialchars($song['album_name']); ?></div>
+                <div class="country-tag"><?php echo htmlspecialchars($song['country_name']); ?></div>
+                <?php if(!empty($song['genre'])): ?>
+                    <div class="genre-tag">
+                        Genre: <?php echo htmlspecialchars($song['genre']); ?>
+                    </div>
+                <?php endif; ?>
+                
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress"></div>
+                </div>
+                
+                <div class="time-info">
+                    <div id="current-time">0:00</div>
+                    <div id="duration"><?php echo htmlspecialchars($song['duration']); ?></div>
+                </div>
+                
+                <div class="controls">
+                    <button class="control-button">⏮︎</button>
+                    <button class="control-button play-button" id="playButton">▶︎</button>
+                    <button class="control-button">⏭︎</button>
+                </div>
+                
+                <?php if(isset($song_stats)): ?>
+                <div class="additional-info">
+                    <div class="song-stats">
+                        <div class="stat">
+                            <div class="stat-value"><?php echo htmlspecialchars($song_stats['plays']); ?></div>
+                            <div class="stat-label">Total Plays</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value"><?php echo htmlspecialchars($song_stats['rank']); ?></div>
+                            <div class="stat-label">Ranking</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-value"><?php echo htmlspecialchars($song_stats['release_year']); ?></div>
+                            <div class="stat-label">Released</div>
+                        </div>
+                    </div>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

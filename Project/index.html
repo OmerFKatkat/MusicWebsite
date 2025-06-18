@@ -1,0 +1,51 @@
+<!--
+    Ömer Faruk Katkat
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player Setup</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, #222222 0%, #0a0a0a 100%);
+            text-align: center;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+        }
+        
+        .init-button {
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(29, 185, 84, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .init-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 35px rgba(29, 185, 84, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <form action="install.php" method="post">
+        <input type="submit" class="init-button" value="Initialize Database">
+    </form>
+</body>
+</html>

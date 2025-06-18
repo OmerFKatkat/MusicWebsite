@@ -1,0 +1,514 @@
+<!--
+    Ömer Faruk Katkat
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player - Homepage</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, #222222 0%, #0a0a0a 100%);
+        }
+        
+        header {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .welcome {
+            font-size: 20px;
+            color: #ffffff;
+        }
+        
+        .logout {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .logout:hover{
+            text-decoration: underline;
+            background-color: #1DB954;
+            border-color: #1DB954;
+        }
+        
+        .main-wrapper {
+            display: flex;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+        
+        .container {
+            display: flex;
+            flex: 1;
+        }
+        
+        .left-column {
+            width: 35%;
+            margin-right: 20px;
+        }
+        
+        .right-column {
+            width: 65%;
+        }
+        
+        .stats-column {
+            width: 300px;
+            flex-shrink: 0;
+        }
+        
+        .recently-played-row {
+            margin-bottom: 20px;
+        }
+        
+        .section {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        h2 {
+            margin: 0;
+            color: #ffffff;
+        }
+        
+        .add-button {
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 20px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            display: inline-block;
+            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.3);
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .add-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(29, 185, 84, 0.5);
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            color: #ffffff;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: #1DB954;
+            box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2);
+        }
+
+        .search-bar::placeholder {
+            color: #666666;
+        }
+        
+        .playlist {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.07);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .genre-tag {
+            background-color: rgba(29, 185, 84, 0.2);
+            color: #1DB954;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            margin-left: 10px;
+            border: 1px solid rgba(29, 185, 84, 0.3);
+        }
+
+        .playlist:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .playlist img {
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .playlist h3 {
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .playlist p {
+            color: #b3b3b3;
+            margin: 0;
+        }
+        
+        .history-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .artist-card {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.07);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .artist-card:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .artist-card img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .artist-card h3 {
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .artist-card p {
+            color: #b3b3b3;
+            margin: 0;
+        }
+        
+        form {
+            margin: 0;
+        }
+        
+        .create-playlist-form {
+            background-color: rgba(30, 30, 30, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        
+        .create-playlist-form input[type="text"] {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-sizing: border-box;
+            color: #ffffff;
+            transition: all 0.3s;
+        }
+
+        .create-playlist-form input[type="text"]:focus {
+            outline: none;
+            border-color: #1DB954;
+            box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2);
+        }
+
+        .create-playlist-form input[type="text"]::placeholder {
+            color: #666666;
+        }
+        
+        .form-buttons {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .form-buttons input[type="submit"] {
+            padding: 14px 28px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: inline-block;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            color: white;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .form-buttons input[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4);
+        }
+        
+        .success-message {
+            background-color: rgba(29, 185, 84, 0.2);
+            color: #1DB954;
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .error-message {
+            background-color: rgba(242, 222, 222, 0.2);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .song-card {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.07);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .song-card:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .song-card img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        
+        .song-card div {
+            flex-grow: 1;
+        }
+        
+        .song-card h3 {
+            margin: 0 0 5px 0;
+            color: #ffffff;
+        }
+        
+        .song-card p {
+            margin: 0 0 5px 0;
+            color: #b3b3b3;
+        }
+        
+        .song-card small {
+            color: #666666;
+        }
+        
+        .stats-button {
+            display: block;
+            text-align: center;
+            padding: 14px;
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .stats-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4);
+        }
+
+        p {
+            color: #b3b3b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="welcome" id="welcomeMessage">Hello, <?php echo $user_name; ?>!</div>
+        <a href="login.html" class="logout">Logout</a>
+    </header>
+    
+    <div class="main-wrapper">
+        <div class="container">
+            <div class="left-column">
+                <form action="search_results.php" method="get">
+                    <input type="text" name="search_term" placeholder="Search for anything..." class="search-bar">
+                </form>
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Playlists</h2>
+                        <?php if(isset($_GET['show_create_form'])): ?>
+                            <a href="homepage.php" class="add-button">x</a>
+                        <?php else: ?>
+                            <a href="?show_create_form=1" class="add-button">+</a>
+                        <?php endif; ?>
+                    </div>
+                    <?php if(isset($success_message)): ?>
+                    <div class="success-message"><?php echo $success_message; ?></div>
+                    <?php endif; ?>
+
+                    <?php if(isset($_GET['show_create_form'])): ?>
+                    <div class="create-playlist-form">
+                        <form method="post" action="">
+                            <input type="text" name="new_playlist" placeholder="Enter playlist name" required>
+                            <div class="form-buttons">
+                                <input type="submit" value="Create">
+                            </div>
+                        </form>
+                    </div>
+                    <?php endif; ?>
+                    
+                    <div class="playlists-container">
+                      <?php if ($playlists->num_rows): ?>
+                        <?php while($pl = $playlists->fetch_assoc()): ?>
+                          <?php $playlist_image = getImageUrl($pl['playlist_id'], 'playlist', $pl['image']); ?>
+                          <a 
+                            href="playlistpage.php?id=<?php echo $pl['playlist_id']; ?>" 
+                            style="text-decoration:none;color:inherit;"
+                          >
+                            <div class="playlist">
+                              <img 
+                                src="<?php echo $playlist_image; ?>" 
+                                alt="<?php echo htmlspecialchars($pl['title']); ?>"
+                              />
+                              <h3><?php echo htmlspecialchars($pl['title'],ENT_QUOTES); ?></h3>
+                            </div>
+                          </a>
+                        <?php endwhile; ?>
+                      <?php else: ?>
+                        <p>No playlists found. Create one now!</p>
+                      <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="right-column">
+                <div class="recently-played-row">
+                    <div class="section">
+                        <div class="section-header">
+                            <h2>Recently Played</h2>
+                        </div>
+                        
+                        <form action="search_results.php" method="get">
+                            <input type="text" name="search_term" placeholder="Search for songs..." class="search-bar">
+                            <input type="hidden" name="search_type" value="song">
+                        </form>
+                        <div class="history-container" id="historyContainer">
+                            <?php if($history->num_rows > 0): ?>
+                                <?php while($song = $history->fetch_assoc()): ?>
+                                    <?php $song_image = getImageUrl($song['song_id'], 'song'); ?>
+                                    <a href="currentmusic.php?song_id=<?php echo $song['song_id']; ?>" style="text-decoration:none;color:inherit;">
+                                        <div class="song-card">
+                                            <img 
+                                                src="<?php echo $song_image; ?>" 
+                                                alt="<?php echo htmlspecialchars($song['title']); ?>">
+                                            <div>
+                                                <h3><?php echo htmlspecialchars($song['title']); ?></h3>
+                                                <p><?php echo htmlspecialchars($song['artist_name']); ?> • <?php echo htmlspecialchars($song['album_name']); ?></p>
+                                                <span class="genre-tag"><?php echo htmlspecialchars($song['genre']); ?></span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                <?php endwhile; ?>
+                            <?php else: ?>
+                                <p>No recently played songs found.</p>
+                            <?php endif; ?>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="section">
+                    <div class="section-header">
+                        <h2>Artists from Your Country</h2>
+                    </div>
+                    
+                    <form action="search_results.php" method="get">
+                        <input type="text" name="search_term" placeholder="Search for artists..." class="search-bar">
+                        <input type="hidden" name="search_type" value="artist">
+                    </form>
+                    
+                    <div class="artists-container" id="artistsContainer">
+                        <?php if($artists->num_rows > 0): ?>
+                            <?php while($artist = $artists->fetch_assoc()): ?>
+                                <?php $artist_image = getImageUrl($artist['artist_id'], 'artist'); ?>
+                                <a href="artistpage.php?id=<?php echo $artist['artist_id']; ?>" style="text-decoration:none;color:inherit;">
+                                    <div class="artist-card">
+                                        <img 
+                                            src="<?php echo $artist_image; ?>" 
+                                            alt="<?php echo htmlspecialchars($artist['name']); ?>">
+                                        <div>
+                                            <h3><?php echo htmlspecialchars($artist['name']); ?></h3>
+                                            <p><?php echo number_format($artist['listeners']); ?> listeners</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <p>No artists found from your country.</p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="stats-column">
+            <div class="section">
+                <div class="section-header">
+                    <h2>General Statistics</h2>
+                </div>
+                <a href="generalSQL.php" class="stats-button">
+                    View Genre & Country Statistics
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

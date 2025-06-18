@@ -1,0 +1,322 @@
+<!--
+    Ömer Faruk Katkat
+
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player - Genre & Country Statistics</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, #222222 0%, #0a0a0a 100%);
+            color: #ffffff;
+        }
+        
+        header {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .welcome {
+            font-size: 20px;
+            color: #ffffff;
+        }
+        
+        .logout {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .logout:hover {
+            text-decoration: underline;
+            background-color: #1DB954;
+            border-color: #1DB954;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        
+        .section {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h2 {
+            margin-top: 0;
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .stats-box {
+            background-color: rgba(255, 255, 255, 0.07);
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stats-box h3 {
+            margin-top: 0;
+            color: #1DB954;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+        }
+        
+        table th {
+            background-color: rgba(255, 255, 255, 0.07);
+            color: #b3b3b3;
+            font-weight: 600;
+        }
+        
+        table tr:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+        
+        .custom-query {
+            margin-top: 30px;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 10px;
+            resize: vertical;
+            color: #ffffff;
+            transition: all 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #1DB954;
+            box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2);
+        }
+        
+        textarea::placeholder {
+            color: #666666;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 3px 10px rgba(29, 185, 84, 0.4);
+        }
+        
+        .query-result {
+            margin-top: 20px;
+            overflow-x: auto;
+        }
+        
+        .no-result {
+            color: #b3b3b3;
+            font-style: italic;
+        }
+             
+        .chart-container {
+            height: 250px;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="welcome">Hello, <?php echo $user_name; ?>!</div>
+        <a href="login.html" class="logout">Logout</a>
+    </header>
+    
+    <div class="container">
+        <a href="homepage.php" class="back-button">← Back to Homepage</a>
+        
+        <div class="section">
+            <h2>Genre & Country Music Statistics</h2>
+            
+            <div class="stats-grid">
+                <div class="stats-box">
+                    <h3>Top 5 Genres by Listeners</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Genre</th>
+                                <th>Listeners</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(!empty($top_genres)): ?>
+                                <?php foreach($top_genres as $genre): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($genre['genre']); ?></td>
+                                        <td><?php echo number_format($genre['listeners']); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="2" class="no-result">No genre data available</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="stats-box">
+                    <h3>Top 5 Countries by Artists</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Artist Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(!empty($top_countries)): ?>
+                                <?php foreach($top_countries as $country): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($country['country_name']); ?></td>
+                                        <td><?php echo number_format($country['artist_count']); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="2" class="no-result">No country data available</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="stats-box">
+                    <h3>Top 5 Most Played Songs</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Song</th>
+                                <th>Artist</th>
+                                <th>Play Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(!empty($most_played)): ?>
+                                <?php foreach($most_played as $song): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($song['title']); ?></td>
+                                        <td><?php echo htmlspecialchars($song['artist_name']); ?></td>
+                                        <td><?php echo number_format($song['play_count']); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="3" class="no-result">No play history data available</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="stats-box">
+                    <h3>Top 5 Most Popular Artists</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Artist</th>
+                                <th>Listeners</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(!empty($popular_artists)): ?>
+                                <?php foreach($popular_artists as $artist): ?>
+                                    <tr>
+                                        <td><?php echo htmlspecialchars($artist['name']); ?></td>
+                                        <td><?php echo number_format($artist['listeners']); ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="2" class="no-result">No artist data available</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

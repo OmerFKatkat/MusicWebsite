@@ -1,0 +1,366 @@
+<!--
+    Ömer Faruk Katkat
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player - Search Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #0a0a0a;
+            background-image: radial-gradient(#222222 0%, #0a0a0a 100%);
+            color: #ffffff;
+        }
+        
+        header {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .welcome {
+            font-size: 20px;
+            color: #ffffff;
+        }
+        
+        .logout {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .logout:hover {
+            text-decoration: underline;
+            background-color: #1DB954;
+            border-color: #1DB954;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .back-button {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4);
+        }
+        
+        .search-bar-container {
+            margin-bottom: 20px;
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .search-bar {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            box-sizing: border-box;
+            color: #ffffff;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+        
+        .search-bar:focus {
+            outline: none;
+            border-color: #1DB954;
+            box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2);
+        }
+        
+        .search-bar::placeholder {
+            color: #666666;
+        }
+        
+        .section {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        h1, h2 {
+            color: #ffffff;
+            margin-top: 0;
+            font-weight: 600;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        
+        .search-term {
+            color: #1DB954;
+        }
+        
+        .song-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.07);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .song-card:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .song-card img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        
+        .song-card div {
+            flex-grow: 1;
+        }
+        
+        .song-card h3 {
+            margin: 0 0 5px 0;
+            color: #ffffff;
+        }
+        
+        .song-card p {
+            margin: 0;
+            color: #b3b3b3;
+        }
+        
+        .small-info small {
+            color: #666666;
+        }
+        
+        .artist-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.07);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .artist-card:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .artist-card img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        .artist-card div {
+            flex-grow: 1;
+        }
+        
+        .artist-card h3 {
+            margin: 0 0 5px 0;
+            color: #ffffff;
+        }
+        
+        .artist-card p {
+            margin: 0;
+            color: #b3b3b3;
+        }
+
+        .playlist-card {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            background-color: rgba(255, 255, 255, 0.07);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .playlist-card:hover {
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+        
+        .playlist-card img {
+            width: 60px;
+            height: 60px;
+            margin-right: 15px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+        
+        .playlist-card div {
+            flex-grow: 1;
+        }
+        
+        .playlist-card h3 {
+            margin: 0 0 5px 0;
+            color: #ffffff;
+        }
+        
+        .playlist-card p {
+            margin: 0;
+            color: #b3b3b3;
+        }
+        
+        .no-results {
+            padding: 20px;
+            text-align: center;
+            color: #b3b3b3;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="welcome">Hello, <?php echo $user_name; ?>!</div>
+        <a href="login.html" class="logout">Logout</a>
+    </header>
+    
+    <div class="container">
+        <a href="homepage.php" class="back-button">← Back to Home</a>
+        
+        <div class="search-bar-container">
+            <form action="search_results.php" method="get">
+                <input type="text" name="search_term" value="<?php echo htmlspecialchars($search_term); ?>" class="search-bar" placeholder="Search for anything...">
+            </form>
+        </div>
+        
+        <h1>Search Results for "<span class="search-term"><?php echo htmlspecialchars($search_term); ?></span>"</h1>
+        
+        <div class="section">
+            <h2>Songs</h2>
+            <?php if($songs && $songs->num_rows > 0): ?>
+                <?php while($song = $songs->fetch_assoc()): ?>
+                    <?php $song_image = getImageUrl($song['song_id'], 'song'); ?>
+                    <a href="currentmusic.php?song_id=<?php echo $song['song_id']; ?>" style="text-decoration:none;color:inherit;">
+                        <div class="song-card">
+                            <img 
+                                src="<?php echo $song_image; ?>" 
+                                alt="<?php echo htmlspecialchars($song['title']); ?>">
+                            <div>
+                                <h3><?php echo htmlspecialchars($song['title']); ?></h3>
+                                <p><?php echo htmlspecialchars($song['artist_name']); ?> • <?php echo htmlspecialchars($song['album_name']); ?></p>
+                                <div class="small-info" style="display: flex; justify-content: space-between; margin-top: 5px;">
+                                    <?php if(!empty($song['duration'])): ?>
+                                    <small>Duration: <?php echo htmlspecialchars($song['duration']); ?></small>
+                                    <?php endif; ?>
+                                    <?php if(!empty($song['genre'])): ?>
+                                    <small>Genre: <?php echo htmlspecialchars($song['genre']); ?></small>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="no-results">No songs found matching "<?php echo htmlspecialchars($search_term); ?>"</div>
+            <?php endif; ?>
+        </div>
+        
+        <div class="section">
+            <h2>Artists</h2>
+            <?php if($artists && $artists->num_rows > 0): ?>
+                <?php while($artist = $artists->fetch_assoc()): ?>
+                    <?php $artist_image = getImageUrl($artist['artist_id'], 'artist'); ?>
+                    <a href="artistpage.php?id=<?php echo $artist['artist_id']; ?>" style="text-decoration:none;color:inherit;">
+                        <div class="artist-card">
+                            <img 
+                                src="<?php echo $artist_image; ?>" 
+                                alt="<?php echo htmlspecialchars($artist['name']); ?>"
+                            />
+                            <div>
+                                <h3><?php echo htmlspecialchars($artist['name']); ?></h3>
+                                <p><?php echo number_format($artist['listeners']); ?> listeners</p>
+                                <?php if(!empty($artist['genre'])): ?>
+                                <p>Genre: <?php echo htmlspecialchars($artist['genre']); ?></p>
+                                <?php endif; ?>
+                                <?php if(!empty($artist['country_name'])): ?>
+                                <p>Country: <?php echo htmlspecialchars($artist['country_name']); ?></p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </a>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="no-results">No artists found matching "<?php echo htmlspecialchars($search_term); ?>"</div>
+            <?php endif; ?>
+        </div>
+        
+        <div class="section">
+            <h2>Playlists</h2>
+            <?php if($playlists && $playlists->num_rows > 0): ?>
+                <?php while($playlist = $playlists->fetch_assoc()): ?>
+                    <?php $playlist_image = getImageUrl($playlist['playlist_id'], 'playlist', $playlist['image']); ?>
+                    <a href="playlistpage.php?id=<?php echo $playlist['playlist_id']; ?>" style="text-decoration:none;color:inherit;">
+                        <div class="playlist-card">
+                            <img 
+                                src="<?php echo $playlist_image; ?>" 
+                                alt="<?php echo htmlspecialchars($playlist['title']); ?>"
+                            >
+                            <div>
+                                <h3><?php echo htmlspecialchars($playlist['title']); ?></h3>
+                                <p>Created by: <?php echo htmlspecialchars($playlist['creator_name']); ?></p>
+                                <?php if(!empty($playlist['description'])): ?>
+                                <p><?php echo htmlspecialchars(substr($playlist['description'], 0, 50)); ?><?php echo strlen($playlist['description']) > 50 ? '...' : ''; ?></p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    </a>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <div class="no-results">No playlists found matching "<?php echo htmlspecialchars($search_term); ?>"</div>
+            <?php endif; ?>
+        </div>
+    </div>
+</body>
+</html>

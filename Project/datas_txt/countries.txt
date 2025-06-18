@@ -1,0 +1,40 @@
+Turkey,TR
+United States,US
+Japan,JP
+Germany,DE
+Brazil,BR
+Australia,AU
+Canada,CA
+India,IN
+France,FR
+South Korea,KR
+United Kingdom,GB
+Italy,IT
+Spain,ES
+Mexico,MX
+Russia,RU
+China,CN
+Netherlands,NL
+Sweden,SE
+Norway,NO
+Denmark,DK
+Finland,FI
+Poland,PL
+Switzerland,CH
+Belgium,BE
+Argentina,AR
+South Africa,ZA
+New Zealand,NZ
+Saudi Arabia,SA
+Indonesia,ID
+Egypt,EG
+Thailand,TH
+Ukraine,UA
+Pakistan,PK
+Vietnam,VN
+Philippines,PH
+Malaysia,MY
+Austria,AT
+Portugal,PT
+Ireland,IE
+Singapore,SG

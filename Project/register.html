@@ -1,0 +1,222 @@
+<!--
+    Ömer Faruk Katkat
+
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Music Player</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 50%, #222222 0%, #0a0a0a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #f5f5f5;
+            padding: 20px 0;
+        }
+
+        .register-container {
+            background-color: rgba(30, 30, 30, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            max-width: 90%;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #b3b3b3;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            background-color: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 15px;
+            transition: all 0.3s;
+            color: #ffffff;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #1DB954;
+            box-shadow: 0 0 0 2px rgba(29, 185, 84, 0.2);
+        }
+
+        input::placeholder {
+            color: #666666;
+        }
+
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background-color: #1e1e1e;
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1DB954, #1ed760);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.4);
+        }
+
+        .success-message {
+            background-color: rgba(29, 185, 84, 0.2);
+            color: #1DB954;
+            border: 1px solid rgba(29, 185, 84, 0.3);
+            text-align: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #b3b3b3;
+        }
+
+        .login-link a {
+            color: #1DB954;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h2>Register for Music Player</h2>          
+
+        <form action="register.php" method="post">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" name="country" required>
+                    <option value="">Select your country</option>
+                    <option value="TR">Turkey</option>
+                    <option value="US">United States</option>
+                    <option value="JP">Japan</option>
+                    <option value="DE">Germany</option>
+                    <option value="BR">Brazil</option>
+                    <option value="AU">Australia</option>
+                    <option value="CA">Canada</option>
+                    <option value="IN">India</option>
+                    <option value="FR">France</option>
+                    <option value="KR">South Korea</option>
+                    <option value="GB">United Kingdom</option>
+                    <option value="IT">Italy</option>
+                    <option value="ES">Spain</option>
+                    <option value="MX">Mexico</option>
+                    <option value="RU">Russia</option>
+                    <option value="CN">China</option>
+                    <option value="NL">Netherlands</option>
+                    <option value="SE">Sweden</option>
+                    <option value="NO">Norway</option>
+                    <option value="DK">Denmark</option>
+                    <option value="FI">Finland</option>
+                    <option value="PL">Poland</option>
+                    <option value="CH">Switzerland</option>
+                    <option value="BE">Belgium</option>
+                    <option value="AR">Argentina</option>
+                    <option value="ZA">South Africa</option>
+                    <option value="NZ">New Zealand</option>
+                    <option value="SA">Saudi Arabia</option>
+                    <option value="ID">Indonesia</option>
+                    <option value="EG">Egypt</option>
+                    <option value="TH">Thailand</option>
+                    <option value="UA">Ukraine</option>
+                    <option value="PK">Pakistan</option>
+                    <option value="VN">Vietnam</option>
+                    <option value="PH">Philippines</option>
+                    <option value="MY">Malaysia</option>
+                    <option value="AT">Austria</option>
+                    <option value="PT">Portugal</option>
+                    <option value="IE">Ireland</option>
+                    <option value="SG">Singapore</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="submit-btn">Register</button>
+        </form>
+        
+        <div class="login-link">
+            Already have an account? <a href="login.html">Login here</a>
+        </div>
+    </div>
+</body>
+</html>
